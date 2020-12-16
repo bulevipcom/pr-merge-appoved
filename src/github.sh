@@ -39,7 +39,7 @@ github::set_approved_label(){
         
          curl -sSL \
         -H "Authorization: token ${GITHUB_TOKEN}" \
-        -H "${API_HEADER}" \
+        -H "${GITHUB_API_HEADER}" \
         -X POST \
         -H "Content-Type: application/json" \
         -d "{\"labels\":['approved']}" \
@@ -47,7 +47,7 @@ github::set_approved_label(){
     else
           curl -sSL \
             -H "Authorization: token ${GITHUB_TOKEN}" \
-            -H "${API_HEADER}" \
+            -H "${GITHUB_API_HEADER}" \
             -X DELETE \
             "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/approved"
       fi
