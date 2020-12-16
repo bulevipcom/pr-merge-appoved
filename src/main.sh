@@ -6,9 +6,7 @@ main() {
 
   export GITHUB_TOKEN="$1"
 
-  echo $1
-
-  #github::get_pr_total_approves()
+  github::get_pr_total_approves
 
   exit $?
 }
