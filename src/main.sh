@@ -6,7 +6,7 @@ main() {
 
   export GITHUB_TOKEN="$1"
 
-  github::get_pr_total_approves $2 $3
+  github::set_approved_label $2 $3
 
   exit $?
 }
