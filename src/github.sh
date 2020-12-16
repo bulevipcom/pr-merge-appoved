@@ -24,15 +24,25 @@ github::get_pr_total_approves(){
 }
 
 github::set_approved_label(){
-    local -r addLabel=$1
+    local -r label=$1
+    local -r approvals_needed=$2
     local -r approvals=$(github::get_pr_total_approves)
-     if [[ "$approvals" -ge "$APPROVALS" ]]; then
+
+     if [[ "$approvals" -ge "$approvals_needed" ]]; then
         
          curl -sSL \
         -H "${AUTH_HEADER}" \
         -H "${API_HEADER}" \
         -X POST \
         -H "Content-Type: application/json" \
-        -d "{\"labels\":[\"${addLabel}\"]}" \
+        -d "{\"labels\":[\"${label}\"]}" \
         "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels"
+    else
+          curl -sSL \
+            -H "${AUTH_HEADER}" \
+            -H "${API_HEADER}" \
+            -X DELETE \
+            "${URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels/${label}"
+      fi
+
 }
