@@ -31,7 +31,7 @@ github::get_pr_total_approves(){
 }
 
 github::set_approved_label(){
-    local -r label=$1
+    local -r label='bug'
     local -r approvals_needed=$2
     local -r approvals=$(github::get_pr_total_approves)
 
