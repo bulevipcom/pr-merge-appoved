@@ -1,5 +1,6 @@
 name: 'Set approved label and automerge'
 description: 'Set approved label and automerge'
+
 inputs:
    GITHUB_TOKEN:
       description: 'Github token'
@@ -8,12 +9,18 @@ inputs:
       description: 'Number of ok reviews'
       required: false
       default: '3'
+   label:
+      description: 'Approved label'
+      required: true
+
 runs:
    using: 'docker'
    image: 'Dockerfile'
    args:
       - ${{ inputs.GITHUB_TOKEN }}
       - ${{ inputs.required_approves }}
+      - ${{ inputs.label }}
+
 branding:
    icon: 'tag'
    color: 'green'
