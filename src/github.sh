@@ -31,13 +31,19 @@ github::get_pr_total_approves(){
 }
 
 github::set_approved_label(){
-    local -r label=$1
+    local -r label='bug'
     local -r approvals_needed=$2
     local -r approvals=$(github::get_pr_total_approves)
 
      if [[ "$approvals" -ge "$approvals_needed" ]]; then
         
-        echo $label
+         curl -sSL \
+        -H "Authorization: token ${GITHUB_TOKEN}" \
+        -H "${API_HEADER}" \
+        -X POST \
+        -H "Content-Type: application/json" \
+        -d "{\"labels\":[\"${label}\"]}" \
+        "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${number}/labels"
     else
           curl -sSL \
             -H "Authorization: token ${GITHUB_TOKEN}" \

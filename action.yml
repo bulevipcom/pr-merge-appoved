@@ -11,7 +11,7 @@ inputs:
       default: '3'
    label:
       description: 'Approved label'
-      required: true
+      required: false
 
 runs:
    using: 'docker'
