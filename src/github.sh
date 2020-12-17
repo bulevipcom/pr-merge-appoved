@@ -79,7 +79,7 @@ github::merge_if_approved(){
   local -r approved=$(github::is_approved)
   local -r commit_message=$2
   
-  message='{"commit_title":\"${commit_message}\"}'
+  message='{"commit_title":"'${commit_message}'"}'
 
   echo $message
 
@@ -89,7 +89,7 @@ github::merge_if_approved(){
     -H "${GITHUB_API_HEADER}" \
     -X PUT \
     "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/merge" \
-    -d '{"commit_title":\"${commit_message}\"}'
+    -d $message
    fi
 }
 
