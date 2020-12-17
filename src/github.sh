@@ -11,7 +11,6 @@ github::get_pr_number() {
 
 github::get_pr_total_approves(){
      local -r pr_number=$(github::get_pr_number)
-     #local -r pr_number=1
      local -r body=$(curl -sSL   -H "Authorization: token ${GITHUB_TOKEN}" -H "$GITHUB_API_HEADER" "$GITHUB_API_URI/repos/$GITHUB_REPOSITORY/pulls/$pr_number/reviews?per_page=100")
      reviews=$(echo "$body" | jq --raw-output '.[] | {state: .state} | @base64')
 
@@ -56,20 +55,15 @@ github::set_approved_label(){
 }
 
 
-github::is_approved(){
+github::is_approved(approved_label){
     local -r pr_number=$(github::get_pr_number)
-    local -r body=$(curl -sSL   -H "Authorization: token ${GITHUB_TOKEN}" -H "$GITHUB_API_HEADER" "$GITHUB_API_URI/repos/$GITHUB_REPOSITORY/pulls/$pr_number")
-     labels=$(echo "$body" | jq --raw-output '.[] | {labels: .labels} | @base64')
-    
-  local -r approved_label=$1
-
+    local -r body=$(curl -sSL   -H "Authorization: token ${GITHUB_TOKEN}" -H "$GITHUB_API_HEADER" "$GITHUB_API_URI/repos/$GITHUB_REPOSITORY/issues/$pr_number/labels")
+   
+  labels=$(echo "$body" | jq --raw-output '.[] | .name}') 
   approved=false
 
   for l in $labels;do
-     label="$(echo "$l" | base64 -d)"
-     labelName=$(echo "$label" | jq --raw-output '.name')
-
-        if [[ "$labelName" == "$approved_label" ]]; then
+        if [[ "$l" == "$approved_label" ]]; then
             approved=true
             break
         fi
