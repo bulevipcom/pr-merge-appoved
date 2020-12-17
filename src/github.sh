@@ -54,3 +54,42 @@ github::set_approved_label(){
       fi
 
 }
+
+
+github::is_approved(){
+    local -r pr_number=$(github::get_pr_number)
+    local -r body=$(curl -sSL   -H "Authorization: token ${GITHUB_TOKEN}" -H "$GITHUB_API_HEADER" "$GITHUB_API_URI/repos/$GITHUB_REPOSITORY/pulls/$pr_number")
+     labels=$(echo "$body" | jq --raw-output '.[] | {labels: .labels} | @base64')
+    
+  local -r approved_label=$1
+
+  approved=false
+
+  for l in $labels;do
+     label="$(echo "$l" | base64 -d)"
+     labelName=$(echo "$label" | jq --raw-output '.name')
+
+        if [[ "$labelName" == "$approved_label" ]]; then
+            approved=true
+            break
+        fi
+    done
+    
+  echo $approved
+}
+
+github::merge_if_approved(){
+
+  local -r pr_number=$(github::get_pr_number)
+  local -r approved=$(github::is_approved)
+  
+  if ; then
+    curl -sSL \
+    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "${GITHUB_API_HEADER}" \
+    -X PUT \
+    "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/merge" \
+    -d '{"commit_title":\"${commit_message} \"}'
+   fi
+}
+

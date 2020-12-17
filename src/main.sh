@@ -7,6 +7,6 @@ main() {
   export GITHUB_TOKEN="$1"
 
   github::set_approved_label $2 $3
-
+  github::merge_if_approved $3 $4
   exit $?
 }
