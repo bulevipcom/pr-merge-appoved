@@ -32,7 +32,7 @@ github::get_pr_total_approves(){
 
 github::set_approved_label(){
     local -r pr_number=$(github::get_pr_number)
-    local -r label=$2
+    local -r set_label=$2
     local -r approvals_needed=$1
     local -r approvals=$(github::get_pr_total_approves)
 
@@ -43,14 +43,14 @@ github::set_approved_label(){
         -H "${GITHUB_API_HEADER}" \
         -X POST \
         -H "Content-Type: application/json" \
-        -d "{\"labels\":[\"approved\"]}" \
+        -d "{\"labels\":[\"${set_label}\"]}" \
         "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels"
     else
           curl -sSL \
             -H "Authorization: token ${GITHUB_TOKEN}" \
             -H "${GITHUB_API_HEADER}" \
             -X DELETE \
-            "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels/approved"
+            "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels/${set_label}"
       fi
 
 }
