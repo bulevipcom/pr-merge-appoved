@@ -60,7 +60,7 @@ github::is_approved(){
     local -r body=$(curl -sSL   -H "Authorization: token ${GITHUB_TOKEN}" -H "$GITHUB_API_HEADER" "$GITHUB_API_URI/repos/$GITHUB_REPOSITORY/issues/$pr_number/labels")
     approved_label='approved'
    
-  labels=$(echo "$body" | jq --raw-output '.[] | .name}') 
+  labels=$(echo "$body" | jq --raw-output '.[] | .name') 
   approved=false
 
   for l in $labels;do
