@@ -85,7 +85,7 @@ github::merge_if_approved(){
     -H "${GITHUB_API_HEADER}" \
     -X PUT \
     "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/merge" \
-    -d '{"commit_title":\"${commit_message} \"}'
+    -d '{"commit_title":"Automerge"}'
    fi
 }
 
