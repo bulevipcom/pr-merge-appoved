@@ -12,6 +12,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           required_approves: 0
-          label: 'bug'
+          label: 'approved'
            
         
