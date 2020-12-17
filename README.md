@@ -20,7 +20,7 @@ jobs:
     name: Merge when is approved
     steps:
       - uses: actions/checkout@v1
-      - uses: ./
+      - uses: daniL16/pr-merge-appoved
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           required_approves: 3 
