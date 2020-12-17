@@ -50,7 +50,7 @@ github::set_approved_label(){
             -H "Authorization: token ${GITHUB_TOKEN}" \
             -H "${GITHUB_API_HEADER}" \
             -X DELETE \
-            "${URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels/approved"
+            "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels/approved"
       fi
 
 }
