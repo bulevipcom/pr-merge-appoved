@@ -77,6 +77,7 @@ github::merge_if_approved(){
 
   local -r pr_number=$(github::get_pr_number)
   local -r approved=$(github::is_approved)
+  local -r commit_message=$2
   
   if [[ $approved == 'true' ]] ; then
     curl -sSL \
