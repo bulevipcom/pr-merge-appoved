@@ -11,7 +11,7 @@ jobs:
       - uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          required_approves: 0
+          required_approves: 1
           label: 'bug'
            
         
