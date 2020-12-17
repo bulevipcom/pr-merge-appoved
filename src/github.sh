@@ -83,7 +83,7 @@ github::merge_if_approved(){
   local -r pr_number=$(github::get_pr_number)
   local -r approved=$(github::is_approved)
   
-  if ; then
+  if [[ $approved == 'true' ]] ; then
     curl -sSL \
     -H "Authorization: token ${GITHUB_TOKEN}" \
     -H "${GITHUB_API_HEADER}" \
