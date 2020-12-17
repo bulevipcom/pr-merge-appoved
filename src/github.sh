@@ -43,7 +43,7 @@ github::set_approved_label(){
         -H "${GITHUB_API_HEADER}" \
         -X POST \
         -H "Content-Type: application/json" \
-        -d "{\"labels\":['approved']}" \
+        -d "{\"labels\":[\"approved\"]}" \
         "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/issues/${pr_number}/labels"
     else
           curl -sSL \
