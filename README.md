@@ -15,7 +15,7 @@ name: Merge when is approved
 on: [pull_request]
 
 jobs:
-  labeler:
+  merge:
     runs-on: ubuntu-latest
     name: Merge when is approved
     steps:
