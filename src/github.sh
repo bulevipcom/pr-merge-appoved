@@ -81,8 +81,6 @@ github::merge_if_approved(){
   
   message='{"commit_title":"'${commit_message}'"}'
 
-  echo $message
-
   if [[ $approved == 'true' ]] ; then
     curl -sSL \
     -H "Authorization: token ${GITHUB_TOKEN}" \
