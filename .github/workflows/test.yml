@@ -1,0 +1,17 @@
+name: test
+
+on: [pull_request]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    name: Test this PR
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          required_approves: 0
+          label: 'approved'
+           
+        
