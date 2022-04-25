@@ -82,6 +82,9 @@ github::merge_if_approved(){
   message='{"commit_title":"'${commit_message}'"}'
 
   if [[ $approved == 'true' ]] ; then
+
+    echo github::update_branch
+
     curl -sSL \
     -H "Authorization: token ${GITHUB_TOKEN}" \
     -H "${GITHUB_API_HEADER}" \
@@ -89,5 +92,13 @@ github::merge_if_approved(){
     "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/merge" \
     -d $message
    fi
+}
+
+github::update_branch(){
+  curl -sSL \
+    -H "Authorization: token ${GITHUB_TOKEN}" \
+    -H "${GITHUB_API_HEADER}" \
+    -X PUT \
+    "${GITHUB_API_URI}/repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/update-branch"
 }
 
