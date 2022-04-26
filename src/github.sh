@@ -83,8 +83,6 @@ github::merge_if_approved(){
 
   if [[ $approved == 'true' ]] ; then
 
-    github::update_branch
-
     curl -sSL \
     -H "Authorization: token ${GITHUB_TOKEN}" \
     -H "${GITHUB_API_HEADER}" \
